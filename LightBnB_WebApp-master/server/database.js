@@ -22,7 +22,7 @@ const users = require('./json/users.json');
  * @return {Promise<{}>} A promise to the user.
  */
 
-const getUserWithEmail = function (email) {
+const getUserWithEmail = function(email) {
   const queryString = `
       SELECT *
       FROM users
@@ -39,7 +39,7 @@ exports.getUserWithEmail = getUserWithEmail;
  * @param {string} id The id of the user.
  * @return {Promise<{}>} A promise to the user.
  */
-const getUserWithId = function (id) {
+const getUserWithId = function(id) {
   const queryString = `
       SELECT *
       FROM users
@@ -57,7 +57,7 @@ exports.getUserWithId = getUserWithId;
  * @param {{name: string, password: string, email: string}} user
  * @return {Promise<{}>} A promise to the user.
  */
-const addUser = function (user) {
+const addUser = function(user) {
     const queryString = `
         INSERT INTO users 
             (name, password, email)
@@ -77,9 +77,25 @@ exports.addUser = addUser;
  * @param {string} guest_id The id of the user.
  * @return {Promise<[{}]>} A promise to the reservations.
  */
-const getAllReservations = function (guest_id, limit = 10) {
-  return getAllProperties(null, 2);
-}
+ const getAllReservations = function(guest_id, limit = 10) {
+  const queryString = `
+      SELECT
+          properties.*,
+          reservations.*,
+          avg(property_reviews.rating) AS average_rating
+          FROM reservations
+          JOIN properties ON reservations.property_id = properties.id
+          JOIN property_reviews ON properties.id = property_reviews.property_id
+      WHERE 
+          reservations.guest_id = $1 AND
+          reservations.end_date < now()::date
+      GROUP BY reservations.id, properties.id
+      ORDER BY reservations.start_date
+      LIMIT $2;
+  `;
+  return pool.query(queryString, [guest_id, limit]).then(res => res.rows);
+};
+
 exports.getAllReservations = getAllReservations;
 
 /// Properties
