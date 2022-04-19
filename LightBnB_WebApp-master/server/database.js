@@ -48,9 +48,9 @@ const getUserWithId = function (id) {
   return pool
   .query(`SELECT * FROM users;`)
   .then((result) => {
-    for (const userId of result.rows) {
-      if (userId.id === id) {
-        return id;
+    for (const user of result.rows) {
+      if (user.id === id) {
+        return user;
       }
     }
     return null;
