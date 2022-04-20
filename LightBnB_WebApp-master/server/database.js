@@ -112,7 +112,7 @@ const getAllProperties = function(options, limit = 10) {
   `;
 
   if (options.city) {
-    // if user typed city name in lowercase change the first letter to uppercase
+    // When a user types city name in lowercase change the first letter to uppercase
     options.city = options.city.charAt(0).toUpperCase() + options.city.substring(1, options.city.length).toLowerCase();
     queryParams.push(`%${options.city}%`);
     queryString += `WHERE city LIKE $${queryParams.length} `;
@@ -163,10 +163,6 @@ const getAllProperties = function(options, limit = 10) {
   ORDER BY cost_per_night
   LIMIT $${queryParams.length};
   `;
-
-
-  console.log(queryParams);
-  console.log(queryString);
 
   return pool.query(queryString, queryParams).then((res) => res.rows);
 };
