@@ -21,7 +21,7 @@ Lighthouse BnB is an app that will revolutionize the travel industry. It will al
 
 ## Getting Started
 - Clone the Project from <https://github.com/Edgarsar/LightBnB>
-- cd into the LightBnB_WebApp directory
+- `cd` into the LightBnB_WebApp-master directory
 - Install all dependencies (using the `npm install` command).
 - Run the development web server using the `npm run local` command.
 - Go to <http://localhost:3000/> in your browser.
