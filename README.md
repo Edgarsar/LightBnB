@@ -4,9 +4,9 @@ Lighthouse BnB is an app that will revolutionize the travel industry. It will al
 
 ## Final Product
 
-!["screenshot of login page"](https://github.com/Edgarsar/tinyapp/blob/master/docs/login-page.png?raw=true)
-!["screenshot of urls page"](https://github.com/Edgarsar/tinyapp/blob/master/docs/urls-page.png?raw=truee)
-!["screenshot of my Urls page"](https://github.com/Edgarsar/tinyapp/blob/master/docs/urls-show.png?raw=truee)
+!["screenshot of main page"](https://github.com/Edgarsar/LightBnB/blob/master/docs/main_page.png?raw=true)
+!["screenshot of create listing page"](https://github.com/Edgarsar/LightBnB/blob/master/docs/create-listing.png?raw=true)
+!["screenshot of search page"](https://github.com/Edgarsar/LightBnB/blob/master/docs/search_page.png?raw=true)
 
 ## Dependencies
 
