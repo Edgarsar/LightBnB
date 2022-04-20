@@ -9,11 +9,6 @@ const pool = new Pool({
 
 
 
-
-
-const properties = require('./json/properties.json');
-const users = require('./json/users.json');
-
 /// Users
 
 /**
@@ -22,7 +17,7 @@ const users = require('./json/users.json');
  * @return {Promise<{}>} A promise to the user.
  */
 
-const getUserWithEmail = function (email) {
+const getUserWithEmail = function(email) {
   const queryString = `
       SELECT *
       FROM users
@@ -39,7 +34,7 @@ exports.getUserWithEmail = getUserWithEmail;
  * @param {string} id The id of the user.
  * @return {Promise<{}>} A promise to the user.
  */
-const getUserWithId = function (id) {
+const getUserWithId = function(id) {
   const queryString = `
       SELECT *
       FROM users
@@ -57,13 +52,13 @@ exports.getUserWithId = getUserWithId;
  * @param {{name: string, password: string, email: string}} user
  * @return {Promise<{}>} A promise to the user.
  */
-const addUser = function (user) {
+const addUser = function(user) {
   const queryString = `
         INSERT INTO users 
             (name, password, email)
         VAlUES
             ($1, $2, $3)
-        RETURNING *;`
+        RETURNING *;`;
   return pool.query(queryString,
     [user.name, user.password, user.email.toLowerCase()])
     .then(res => res.rows[0]);
@@ -77,7 +72,7 @@ exports.addUser = addUser;
  * @param {string} guest_id The id of the user.
  * @return {Promise<[{}]>} A promise to the reservations.
  */
-const getAllReservations = function (guest_id, limit = 10) {
+const getAllReservations = function(guest_id, limit = 10) {
   const queryString = `
       SELECT
           properties.*,
@@ -106,7 +101,7 @@ exports.getAllReservations = getAllReservations;
  * @param {*} limit The number of results to return.
  * @return {Promise<[{}]>}  A promise to the properties.
  */
-const getAllProperties = function (options, limit = 10) {
+const getAllProperties = function(options, limit = 10) {
 
   const queryParams = [];
 
@@ -183,7 +178,7 @@ exports.getAllProperties = getAllProperties;
  * @param {{}} property An object containing all of the property details.
  * @return {Promise<{}>} A promise to the property.
  */
-const addProperty = function (property) {
+const addProperty = function(property) {
   const queryString = `
   INSERT INTO properties (
   title,
@@ -203,7 +198,7 @@ const addProperty = function (property) {
   ) 
   VALUES 
   ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) 
-  RETURNING *;`
+  RETURNING *;`;
 
   const queryParam = [
     property.title,
@@ -222,5 +217,5 @@ const addProperty = function (property) {
     property.post_code
   ];
   return pool.query(queryString, queryParam).then(res => res.rows[0]);
-}
+};
 exports.addProperty = addProperty;
